@@ -444,7 +444,9 @@ function utils.load_plugin(name, modulename)
 
   has, plugin = pcall(require, modulename)
   if not has then
-    utils.info('plugin ' .. name .. ' module ' .. modulename .. '  not loaded ')
+    if name ~= "guihua.lua" then
+      utils.info('plugin ' .. name .. ' module ' .. modulename .. '  not loaded ')
+    end
     return nil
   end
   return plugin
@@ -788,7 +790,7 @@ function utils.uuid()
 end
 
 local lorem =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
 function utils.lorem()
   return lorem
 end
@@ -895,7 +897,7 @@ utils.debounce = function(func, ms)
         pcall(vim.schedule_wrap(func), unpack(argv))
       end)
     else
-      timer:stop() -- Stop the currently running timer
+      timer:stop()                  -- Stop the currently running timer
       timer:start(ms, 0, function() -- Restart it with the latest call
         timer:stop()
         pcall(vim.schedule_wrap(func), unpack(argv))
